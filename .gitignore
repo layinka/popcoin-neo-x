@@ -1,0 +1,11 @@
+/Others
+/API/Source/*.db-wal
+/API/Source/*.db
+/API/Source/*.db-shm
+/Publish
+/API/Source/appsettings.Development.json
+/API/Source/appsettings.Production.json
+/API/.github/workflows
+/Contracts/deployments/localhost
+/API/Source/wwwroot/profiles
+info.txt.info

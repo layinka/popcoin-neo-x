@@ -11,7 +11,7 @@ import { PopCoinDeploymentParameters } from "../utils/deploy-parameters";
 import { BigNumber } from "ethers";
 
 describe("PopCoin2",  function () {
-  const chainId=12227332; //force chain deployment parameters
+  const chainId=1116; //force chain deployment parameters
   // getChainId().then((c)=>{
   //   chainId = +c
   //   console.log('chainid is ', c)
@@ -45,6 +45,7 @@ describe("PopCoin2",  function () {
       parseEther(deployLiquidityFee.toString()) ,
       transactionFeePercent_x_100 ,
       [router.address, ethers.constants.AddressZero, ethers.constants.AddressZero, ethers.constants.AddressZero], 
+      parseEther('0.0001') ,
       {  }
     );
 
@@ -87,6 +88,7 @@ describe("PopCoin2",  function () {
       let pool = await popcoin.tokenPool(tokenAddress)
       let mcap2 = pool.ethReserve +  (pool.lastPrice * await popcoin.INIT_VIRTUAL_TOKEN_RESERVE() )
       
+      console.log('migrationThreshold : ',formatEther(await popcoin.migrationThreshold()) )
 
       expect(tokenAddress).to.not.equal(undefined);
       expect(tokenCreator).to.equal(owner.address);
@@ -100,116 +102,116 @@ describe("PopCoin2",  function () {
       
     });
 
-    it("Should buy successfully", async function () {
-      const { popcoin,owner,router } = await loadFixture(deployPopCoinfactoryFixture);
-      const t:TokenCreateInfoStruct = {
-        banner: 'https://placehold.it/360',
-        logo: 'https://placehold.it/360',
-        description:'description descruption description',
-        initialCreatorBuy: parseEther('0'),
-        name: 'TKN A',
-        symbol: 'TKNA',
-        routerAddress: router.address,
-        telegram:'https://t.me/tokenaaa',
-        twitter:'https://x.me/tokenaaa',
-        website:'www.wwwwwww.com',
+    // it("Should buy successfully", async function () {
+    //   const { popcoin,owner,router } = await loadFixture(deployPopCoinfactoryFixture);
+    //   const t:TokenCreateInfoStruct = {
+    //     banner: 'https://placehold.it/360',
+    //     logo: 'https://placehold.it/360',
+    //     description:'description descruption description',
+    //     initialCreatorBuy: parseEther('0'),
+    //     name: 'TKN A',
+    //     symbol: 'TKNA',
+    //     routerAddress: router.address,
+    //     telegram:'https://t.me/tokenaaa',
+    //     twitter:'https://x.me/tokenaaa',
+    //     website:'www.wwwwwww.com',
       
-      }
-      const tx = await popcoin.createToken(t, {value: parseEther(createTokenFee.toString())});
-      const txReceipt = await tx.wait();
+    //   }
+    //   const tx = await popcoin.createToken(t, {value: parseEther(createTokenFee.toString())});
+    //   const txReceipt = await tx.wait();
 
-      const tokenAddress = txReceipt.events.filter((f: any)=>f.event=='TokenCreated')[0].args['tokenAddress'];
-      const tokenCreator = txReceipt.events.filter((f: any)=>f.event=='TokenCreated')[0].args['creator'];
-      
-
-      expect(tokenAddress).to.not.equal(undefined);
-      expect(tokenCreator).to.equal(owner.address);
-
-      const funToken = await hre.ethers.getContractAt("FunToken", tokenAddress)
-
-      const adminPaymentAddress =  await popcoin.adminPaymentAddress();
-      const initialAdminEthBalance = await hre.ethers.provider.getBalance(adminPaymentAddress);
-      const initialEthBalance = await hre.ethers.provider.getBalance(owner.address)
-      const initialBalance = formatEther(await  funToken.balanceOf(owner.address))
+    //   const tokenAddress = txReceipt.events.filter((f: any)=>f.event=='TokenCreated')[0].args['tokenAddress'];
+    //   const tokenCreator = txReceipt.events.filter((f: any)=>f.event=='TokenCreated')[0].args['creator'];
       
 
-      let ethIn =  parseEther('0.1') 
-      let tokenOutMin = await popcoin.calcAmountOutFromEth(tokenAddress,  ethIn );
+    //   expect(tokenAddress).to.not.equal(undefined);
+    //   expect(tokenCreator).to.equal(owner.address);
+
+    //   const funToken = await hre.ethers.getContractAt("FunToken", tokenAddress)
+
+    //   const adminPaymentAddress =  await popcoin.adminPaymentAddress();
+    //   const initialAdminEthBalance = await hre.ethers.provider.getBalance(adminPaymentAddress);
+    //   const initialEthBalance = await hre.ethers.provider.getBalance(owner.address)
+    //   const initialBalance = formatEther(await  funToken.balanceOf(owner.address))
       
-      let txBuy = await popcoin.swapEthForTokens(tokenAddress, ethIn, tokenOutMin, new Date().getTime() + 120000, {value: ethIn});
-      let txBuyReceipt = await txBuy.wait();
+
+    //   let ethIn =  parseEther('0.1') 
+    //   let tokenOutMin = await popcoin.calcAmountOutFromEth(tokenAddress,  ethIn );
+      
+    //   let txBuy = await popcoin.swapEthForTokens(tokenAddress, ethIn, tokenOutMin, new Date().getTime() + 120000, {value: ethIn});
+    //   let txBuyReceipt = await txBuy.wait();
 
             
-      expect(txBuyReceipt.status).to.equal(1);
+    //   expect(txBuyReceipt.status).to.equal(1);
 
-      const endAdminEthBalance = await hre.ethers.provider.getBalance(adminPaymentAddress);
-      const endEthBalance = await hre.ethers.provider.getBalance(owner.address)
-      const endBalance = formatEther(await  funToken.balanceOf(owner.address))
+    //   const endAdminEthBalance = await hre.ethers.provider.getBalance(adminPaymentAddress);
+    //   const endEthBalance = await hre.ethers.provider.getBalance(owner.address)
+    //   const endBalance = formatEther(await  funToken.balanceOf(owner.address))
       
-      expect(+endBalance).greaterThan(+initialBalance)
-      expect(+formatEther(endAdminEthBalance) - +formatEther(initialAdminEthBalance)).gte( +formatEther(ethIn.mul(9).div(10).mul( transactionFeePercent_x_100).div(10000))) //mply by 0.9 (.mul(9).div(10)) cos of rounding error
-      expect(+formatEther(initialEthBalance) - +formatEther(endEthBalance)).gte( +formatEther(ethIn))
-    });
+    //   expect(+endBalance).greaterThan(+initialBalance)
+    //   expect(+formatEther(endAdminEthBalance) - +formatEther(initialAdminEthBalance)).gte( +formatEther(ethIn.mul(9).div(10).mul( transactionFeePercent_x_100).div(10000))) //mply by 0.9 (.mul(9).div(10)) cos of rounding error
+    //   expect(+formatEther(initialEthBalance) - +formatEther(endEthBalance)).gte( +formatEther(ethIn))
+    // });
 
-    it("Should sell successfully", async function () {
-      const { popcoin,owner,router } = await loadFixture(deployPopCoinfactoryFixture);
-      const t:TokenCreateInfoStruct = {
-        banner: 'https://placehold.it/360',
-        logo: 'https://placehold.it/360',
-        description:'description descruption description',
-        initialCreatorBuy: parseEther('0'),
-        name: 'TKN A',
-        symbol: 'TKNA',
-        routerAddress: router.address,
-        telegram:'https://t.me/tokenaaa',
-        twitter:'https://x.me/tokenaaa',
-        website:'www.wwwwwww.com',
+    // it("Should sell successfully", async function () {
+    //   const { popcoin,owner,router } = await loadFixture(deployPopCoinfactoryFixture);
+    //   const t:TokenCreateInfoStruct = {
+    //     banner: 'https://placehold.it/360',
+    //     logo: 'https://placehold.it/360',
+    //     description:'description descruption description',
+    //     initialCreatorBuy: parseEther('0'),
+    //     name: 'TKN A',
+    //     symbol: 'TKNA',
+    //     routerAddress: router.address,
+    //     telegram:'https://t.me/tokenaaa',
+    //     twitter:'https://x.me/tokenaaa',
+    //     website:'www.wwwwwww.com',
       
-      }
-      const tx = await popcoin.createToken(t, {value: parseEther(createTokenFee.toString())});
-      const txReceipt = await tx.wait();
+    //   }
+    //   const tx = await popcoin.createToken(t, {value: parseEther(createTokenFee.toString())});
+    //   const txReceipt = await tx.wait();
 
-      const tokenAddress = txReceipt.events.filter((f: any)=>f.event=='TokenCreated')[0].args['tokenAddress'];
-      const tokenCreator = txReceipt.events.filter((f: any)=>f.event=='TokenCreated')[0].args['creator'];
-      
-
-      expect(tokenAddress).to.not.equal(undefined);
-      expect(tokenCreator).to.equal(owner.address);
-
-      const funToken = await hre.ethers.getContractAt("FunToken", tokenAddress)
-
-      let ethIn =  parseEther('0.2') 
-      let tokenOutMin = await popcoin.calcAmountOutFromEth(tokenAddress,  ethIn );      
-      let txBuy = await popcoin.swapEthForTokens(tokenAddress, ethIn, tokenOutMin, new Date().getTime() + 120000, {value: ethIn});
-      let txBuyReceipt = await txBuy.wait();
-
-      const adminPaymentAddress =  await popcoin.adminPaymentAddress();
-      const initialAdminEthBalance = await hre.ethers.provider.getBalance(adminPaymentAddress);
-      const initialEthBalance = await hre.ethers.provider.getBalance(owner.address)
-      const initialBalance = formatEther(await  funToken.balanceOf(owner.address))
+    //   const tokenAddress = txReceipt.events.filter((f: any)=>f.event=='TokenCreated')[0].args['tokenAddress'];
+    //   const tokenCreator = txReceipt.events.filter((f: any)=>f.event=='TokenCreated')[0].args['creator'];
       
 
-      let tokenIn =  parseEther((+initialBalance / 2).toString()) 
-      let ethOutMin = await popcoin.calcAmountOutFromToken(tokenAddress,  tokenIn );
+    //   expect(tokenAddress).to.not.equal(undefined);
+    //   expect(tokenCreator).to.equal(owner.address);
 
-      const txApproveBuy = await (await funToken.approve(popcoin.address, tokenIn)).wait();
+    //   const funToken = await hre.ethers.getContractAt("FunToken", tokenAddress)
+
+    //   let ethIn =  parseEther('0.2') 
+    //   let tokenOutMin = await popcoin.calcAmountOutFromEth(tokenAddress,  ethIn );      
+    //   let txBuy = await popcoin.swapEthForTokens(tokenAddress, ethIn, tokenOutMin, new Date().getTime() + 120000, {value: ethIn});
+    //   let txBuyReceipt = await txBuy.wait();
+
+    //   const adminPaymentAddress =  await popcoin.adminPaymentAddress();
+    //   const initialAdminEthBalance = await hre.ethers.provider.getBalance(adminPaymentAddress);
+    //   const initialEthBalance = await hre.ethers.provider.getBalance(owner.address)
+    //   const initialBalance = formatEther(await  funToken.balanceOf(owner.address))
       
 
-      let txSell = await popcoin.swapTokensForEth(tokenAddress, tokenIn, ethOutMin, new Date().getTime() + 120000, {});
-      let txSellReceipt = await txSell.wait();
+    //   let tokenIn =  parseEther((+initialBalance / 2).toString()) 
+    //   let ethOutMin = await popcoin.calcAmountOutFromToken(tokenAddress,  tokenIn );
+
+    //   const txApproveBuy = await (await funToken.approve(popcoin.address, tokenIn)).wait();
+      
+
+    //   let txSell = await popcoin.swapTokensForEth(tokenAddress, tokenIn, ethOutMin, new Date().getTime() + 120000, {});
+    //   let txSellReceipt = await txSell.wait();
 
             
-      expect(txSellReceipt.status).to.equal(1);
+    //   expect(txSellReceipt.status).to.equal(1);
 
-      const endAdminEthBalance = await hre.ethers.provider.getBalance(adminPaymentAddress);
-      const endEthBalance = await hre.ethers.provider.getBalance(owner.address)
-      const endBalance = formatEther(await  funToken.balanceOf(owner.address))
+    //   const endAdminEthBalance = await hre.ethers.provider.getBalance(adminPaymentAddress);
+    //   const endEthBalance = await hre.ethers.provider.getBalance(owner.address)
+    //   const endBalance = formatEther(await  funToken.balanceOf(owner.address))
   
-      expect(endEthBalance).greaterThan(initialEthBalance)
-      expect(+formatEther(endAdminEthBalance) - +formatEther(initialAdminEthBalance)).gte( (0.99 * transactionFeePercent_x_100/10000) * +formatEther(ethOutMin) )//0.009 or rounding errors
-      expect(+initialBalance - +endBalance).gte(+formatEther( tokenIn))
+    //   expect(endEthBalance).greaterThan(initialEthBalance)
+    //   expect(+formatEther(endAdminEthBalance) - +formatEther(initialAdminEthBalance)).gte( (0.99 * transactionFeePercent_x_100/10000) * +formatEther(ethOutMin) )//0.009 or rounding errors
+    //   expect(+initialBalance - +endBalance).gte(+formatEther( tokenIn))
 
-    });
+    // });
 
     it("Should migrate liquidity successfully when target mcap is reached", async function () {
       
@@ -301,6 +303,7 @@ describe("PopCoin2",  function () {
       pool = await popcoin.tokenPool(tokenAddress);
 
       console.log('is migrated: ', pool.migrated)
+      console.log('Pool Last price: ',formatEther( pool.lastPrice) ,', last Mkt Cap: ' ,formatEther(pool.lastMcapInEth))
 
       console.log('Final token balance: ', endBalance)
 

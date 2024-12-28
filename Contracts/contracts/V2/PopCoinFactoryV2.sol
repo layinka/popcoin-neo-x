@@ -2,12 +2,10 @@
 pragma solidity ^0.8.26;
 
 import "@openzeppelin/contracts/access/Ownable.sol";
-
-
 import "@openzeppelin/contracts/utils/ReentrancyGuard.sol";
 import "../IDexRouter.sol";
-import "hardhat/console.sol";
 
+import "hardhat/console.sol";
 
 import { FixedPointMathLib } from "solmate/src/utils/FixedPointMathLib.sol";
 import { SafeTransferLib } from "solmate/src/utils/SafeTransferLib.sol";
@@ -27,6 +25,7 @@ error NotEnoughFee(uint feeToPay);
 error NotEnoughBalance();
 error TokenApprovalRequired();
 error UnsupportedRouter();
+error ExceededMaxGasPrice(uint maxGasPrice);
 
 struct TokenCreateInfo {
     string name;
@@ -123,7 +122,14 @@ contract PopCoinFactoryV2 is ReentrancyGuard, Ownable {
     );
 
 
+    uint256 public maxGasPrice = 1 * 10**18; // Adjustable value
     
+
+    modifier onlyValidGasPrice() {    
+        require(tx.gasprice <= maxGasPrice, ExceededMaxGasPrice(maxGasPrice));    
+        _;  
+    }
+
     modifier onlyUnPaused() {
         if (paused) revert Paused();
         _;
@@ -139,13 +145,15 @@ contract PopCoinFactoryV2 is ReentrancyGuard, Ownable {
         uint256 _tokenCreateFee,
         uint256 _deployLiquidityFee,        
         uint _transactionFeePercent,
-        address[4] memory _dexRouterAddresses
+        address[4] memory _dexRouterAddresses,
+        uint256 _maxGasPrice
     ) Ownable(msg.sender) {
         adminPaymentAddress = payable(msg.sender);
         deployLiquidityFee=_deployLiquidityFee;
         tokenCreateFee=_tokenCreateFee;
         transactionFeePercent=_transactionFeePercent;
         paused = false;
+        maxGasPrice=_maxGasPrice;
 
         initVirtualEthReserve = _initVirtualEthReserve;
         CURVE_CONSTANT = initVirtualEthReserve * INIT_VIRTUAL_TOKEN_RESERVE;
@@ -156,6 +164,11 @@ contract PopCoinFactoryV2 is ReentrancyGuard, Ownable {
                 routersSupported[_dexRouterAddresses[i]]= true;
             }
         }
+    }
+
+    function setMaxGasPrice(uint256 _maxGasPrice) public onlyOwner {    
+        maxGasPrice=_maxGasPrice; 
+        
     }
 
 
@@ -179,7 +192,7 @@ contract PopCoinFactoryV2 is ReentrancyGuard, Ownable {
         pool.migrated = false;
 
         ownerTokens[msg.sender].push(address(token));
-        tokenCreators[address(token)]=msg.sender;
+        tokenCreators[address(token)]=msg.sender; 
 
         emit TokenCreated(
             msg.sender,
@@ -262,9 +275,11 @@ contract PopCoinFactoryV2 is ReentrancyGuard, Ownable {
     function swapEthForTokens(address token, uint256 amountIn, uint256 amountOutMin, uint256 deadline) 
         public 
         payable 
+        onlyValidGasPrice
         nonReentrant 
         onlyUnPaused 
         checkDeadline(deadline) 
+        
         returns (uint256 amountOut) 
     {
         
@@ -277,9 +292,11 @@ contract PopCoinFactoryV2 is ReentrancyGuard, Ownable {
 
     function swapTokensForEth(address token, uint256 tokensIn, uint256 amountOutMin, uint256 deadline)
         public
+        onlyValidGasPrice
         nonReentrant
         onlyUnPaused
         checkDeadline(deadline)
+
         returns (uint256 amountOut)
     {
         uint256 fee = 0;

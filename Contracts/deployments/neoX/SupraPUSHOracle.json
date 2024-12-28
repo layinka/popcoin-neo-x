@@ -1,0 +1,429 @@
+{
+  "address": "0x6a2164a1c18d934D2403EA04A4ac7E13BC6c9FD9",
+  "abi": [
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_supraValueFeedAddress",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256[]",
+          "name": "ratePairIndexes",
+          "type": "uint256[]"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "constructor"
+    },
+    {
+      "inputs": [],
+      "name": "InvalidPair",
+      "type": "error"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "owner",
+          "type": "address"
+        }
+      ],
+      "name": "OwnableInvalidOwner",
+      "type": "error"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "account",
+          "type": "address"
+        }
+      ],
+      "name": "OwnableUnauthorizedAccount",
+      "type": "error"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "caller",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256[]",
+          "name": "ratePairs",
+          "type": "uint256[]"
+        }
+      ],
+      "name": "BlackListPair",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "previousOwner",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "newOwner",
+          "type": "address"
+        }
+      ],
+      "name": "OwnershipTransferred",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "caller",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256[]",
+          "name": "ratePairs",
+          "type": "uint256[]"
+        }
+      ],
+      "name": "WhitelistPair",
+      "type": "event"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256[]",
+          "name": "pairs",
+          "type": "uint256[]"
+        }
+      ],
+      "name": "blacklistSupraPair",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "_priceIndex",
+          "type": "uint256"
+        }
+      ],
+      "name": "getPrice",
+      "outputs": [
+        {
+          "components": [
+            {
+              "internalType": "uint256",
+              "name": "round",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "decimals",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "time",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "price",
+              "type": "uint256"
+            }
+          ],
+          "internalType": "struct ISupraSValueFeed.priceFeed",
+          "name": "",
+          "type": "tuple"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256[]",
+          "name": "_priceIndexes",
+          "type": "uint256[]"
+        }
+      ],
+      "name": "getPrices",
+      "outputs": [
+        {
+          "components": [
+            {
+              "internalType": "uint256",
+              "name": "round",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "decimals",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "time",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "price",
+              "type": "uint256"
+            }
+          ],
+          "internalType": "struct ISupraSValueFeed.priceFeed[]",
+          "name": "",
+          "type": "tuple[]"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "owner",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "renounceOwnership",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "supraValueFeedAddress",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "newOwner",
+          "type": "address"
+        }
+      ],
+      "name": "transferOwnership",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "contract ISupraSValueFeed",
+          "name": "_newSValueFeed",
+          "type": "address"
+        }
+      ],
+      "name": "updateSupraSvalueFeed",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256[]",
+          "name": "pairs",
+          "type": "uint256[]"
+        }
+      ],
+      "name": "whitelistSupraPair",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    }
+  ],
+  "transactionHash": "0xb06535fc5abeed8346ce9db93351f82830a1d47c65bda44176f4ab21239a3936",
+  "receipt": {
+    "to": "0x4e59b44847b379578588920cA78FbF26c0B4956C",
+    "from": "0x5663b6cdbb0dD72bA348671af5bDB81baAa633dF",
+    "contractAddress": null,
+    "transactionIndex": 0,
+    "gasUsed": "692873",
+    "logsBloom": "0x00000000000000000020000000000000000000000000000000800000000000000000000000000000000000000000000000800000000000000000000000000000000000000000000000000008000000000001000000000000000000000000000000000000020000000000000000000800000000000000000000000000000000400000000000000000000000000000000000000000001000000000000000000000000000000001000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000020000000000020000000000000004000000000000000000280000000000000000000000000000000",
+    "blockHash": "0xfb4a5ffd20da5e8f7ad31c131cd641d403e901846e84274393f97a2db30e8834",
+    "transactionHash": "0xb06535fc5abeed8346ce9db93351f82830a1d47c65bda44176f4ab21239a3936",
+    "logs": [
+      {
+        "transactionIndex": 0,
+        "blockNumber": 696846,
+        "transactionHash": "0xb06535fc5abeed8346ce9db93351f82830a1d47c65bda44176f4ab21239a3936",
+        "address": "0x6a2164a1c18d934D2403EA04A4ac7E13BC6c9FD9",
+        "topics": [
+          "0x8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e0",
+          "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "0x0000000000000000000000004e59b44847b379578588920ca78fbf26c0b4956c"
+        ],
+        "data": "0x",
+        "logIndex": 0,
+        "blockHash": "0xfb4a5ffd20da5e8f7ad31c131cd641d403e901846e84274393f97a2db30e8834"
+      },
+      {
+        "transactionIndex": 0,
+        "blockNumber": 696846,
+        "transactionHash": "0xb06535fc5abeed8346ce9db93351f82830a1d47c65bda44176f4ab21239a3936",
+        "address": "0x6a2164a1c18d934D2403EA04A4ac7E13BC6c9FD9",
+        "topics": [
+          "0xe901a0efe00b451f938febe0a54a280bd2032f4129232a42102b31d5cdbcb196",
+          "0x0000000000000000000000004e59b44847b379578588920ca78fbf26c0b4956c"
+        ],
+        "data": "0x000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000000060000000000000000000000000000000000000000000000000000000000000104000000000000000000000000000000000000000000000000000000000000008e0000000000000000000000000000000000000000000000000000000000000038000000000000000000000000000000000000000000000000000000000000016400000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000103",
+        "logIndex": 1,
+        "blockHash": "0xfb4a5ffd20da5e8f7ad31c131cd641d403e901846e84274393f97a2db30e8834"
+      }
+    ],
+    "blockNumber": 696846,
+    "cumulativeGasUsed": "692873",
+    "status": 1,
+    "byzantium": true
+  },
+  "args": [
+    "0x58e158c74DF7Ad6396C0dcbadc4878faC9e93d57",
+    [
+      260,
+      142,
+      56,
+      356,
+      1,
+      259
+    ]
+  ],
+  "numDeployments": 1,
+  "solcInputHash": "46f768076bad1bb7bf9fb7247381a5e3",
+  "metadata": "{\"compiler\":{\"version\":\"0.8.26+commit.8a97fa7a\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_supraValueFeedAddress\",\"type\":\"address\"},{\"internalType\":\"uint256[]\",\"name\":\"ratePairIndexes\",\"type\":\"uint256[]\"}],\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"inputs\":[],\"name\":\"InvalidPair\",\"type\":\"error\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"owner\",\"type\":\"address\"}],\"name\":\"OwnableInvalidOwner\",\"type\":\"error\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"OwnableUnauthorizedAccount\",\"type\":\"error\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"caller\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256[]\",\"name\":\"ratePairs\",\"type\":\"uint256[]\"}],\"name\":\"BlackListPair\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"previousOwner\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"OwnershipTransferred\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"caller\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256[]\",\"name\":\"ratePairs\",\"type\":\"uint256[]\"}],\"name\":\"WhitelistPair\",\"type\":\"event\"},{\"inputs\":[{\"internalType\":\"uint256[]\",\"name\":\"pairs\",\"type\":\"uint256[]\"}],\"name\":\"blacklistSupraPair\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_priceIndex\",\"type\":\"uint256\"}],\"name\":\"getPrice\",\"outputs\":[{\"components\":[{\"internalType\":\"uint256\",\"name\":\"round\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"decimals\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"time\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"price\",\"type\":\"uint256\"}],\"internalType\":\"struct ISupraSValueFeed.priceFeed\",\"name\":\"\",\"type\":\"tuple\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256[]\",\"name\":\"_priceIndexes\",\"type\":\"uint256[]\"}],\"name\":\"getPrices\",\"outputs\":[{\"components\":[{\"internalType\":\"uint256\",\"name\":\"round\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"decimals\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"time\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"price\",\"type\":\"uint256\"}],\"internalType\":\"struct ISupraSValueFeed.priceFeed[]\",\"name\":\"\",\"type\":\"tuple[]\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"owner\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"renounceOwnership\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"supraValueFeedAddress\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"transferOwnership\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"contract ISupraSValueFeed\",\"name\":\"_newSValueFeed\",\"type\":\"address\"}],\"name\":\"updateSupraSvalueFeed\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256[]\",\"name\":\"pairs\",\"type\":\"uint256[]\"}],\"name\":\"whitelistSupraPair\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}],\"devdoc\":{\"errors\":{\"OwnableInvalidOwner(address)\":[{\"details\":\"The owner is not a valid owner account. (eg. `address(0)`)\"}],\"OwnableUnauthorizedAccount(address)\":[{\"details\":\"The caller account is not authorized to perform an operation.\"}]},\"kind\":\"dev\",\"methods\":{\"owner()\":{\"details\":\"Returns the address of the current owner.\"},\"renounceOwnership()\":{\"details\":\"Leaves the contract without owner. It will not be possible to call `onlyOwner` functions. Can only be called by the current owner. NOTE: Renouncing ownership will leave the contract without an owner, thereby disabling any functionality that is only available to the owner.\"},\"transferOwnership(address)\":{\"details\":\"Transfers ownership of the contract to a new account (`newOwner`). Can only be called by the current owner.\"}},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"contracts/Oracles/SupraPUSHOracle.sol\":\"SupraPUSHOracle\"},\"evmVersion\":\"paris\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\",\"useLiteralContent\":true},\"optimizer\":{\"enabled\":true,\"runs\":200},\"remappings\":[],\"viaIR\":true},\"sources\":{\"@openzeppelin/contracts/access/Ownable.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\n// OpenZeppelin Contracts (last updated v5.0.0) (access/Ownable.sol)\\n\\npragma solidity ^0.8.20;\\n\\nimport {Context} from \\\"../utils/Context.sol\\\";\\n\\n/**\\n * @dev Contract module which provides a basic access control mechanism, where\\n * there is an account (an owner) that can be granted exclusive access to\\n * specific functions.\\n *\\n * The initial owner is set to the address provided by the deployer. This can\\n * later be changed with {transferOwnership}.\\n *\\n * This module is used through inheritance. It will make available the modifier\\n * `onlyOwner`, which can be applied to your functions to restrict their use to\\n * the owner.\\n */\\nabstract contract Ownable is Context {\\n    address private _owner;\\n\\n    /**\\n     * @dev The caller account is not authorized to perform an operation.\\n     */\\n    error OwnableUnauthorizedAccount(address account);\\n\\n    /**\\n     * @dev The owner is not a valid owner account. (eg. `address(0)`)\\n     */\\n    error OwnableInvalidOwner(address owner);\\n\\n    event OwnershipTransferred(address indexed previousOwner, address indexed newOwner);\\n\\n    /**\\n     * @dev Initializes the contract setting the address provided by the deployer as the initial owner.\\n     */\\n    constructor(address initialOwner) {\\n        if (initialOwner == address(0)) {\\n            revert OwnableInvalidOwner(address(0));\\n        }\\n        _transferOwnership(initialOwner);\\n    }\\n\\n    /**\\n     * @dev Throws if called by any account other than the owner.\\n     */\\n    modifier onlyOwner() {\\n        _checkOwner();\\n        _;\\n    }\\n\\n    /**\\n     * @dev Returns the address of the current owner.\\n     */\\n    function owner() public view virtual returns (address) {\\n        return _owner;\\n    }\\n\\n    /**\\n     * @dev Throws if the sender is not the owner.\\n     */\\n    function _checkOwner() internal view virtual {\\n        if (owner() != _msgSender()) {\\n            revert OwnableUnauthorizedAccount(_msgSender());\\n        }\\n    }\\n\\n    /**\\n     * @dev Leaves the contract without owner. It will not be possible to call\\n     * `onlyOwner` functions. Can only be called by the current owner.\\n     *\\n     * NOTE: Renouncing ownership will leave the contract without an owner,\\n     * thereby disabling any functionality that is only available to the owner.\\n     */\\n    function renounceOwnership() public virtual onlyOwner {\\n        _transferOwnership(address(0));\\n    }\\n\\n    /**\\n     * @dev Transfers ownership of the contract to a new account (`newOwner`).\\n     * Can only be called by the current owner.\\n     */\\n    function transferOwnership(address newOwner) public virtual onlyOwner {\\n        if (newOwner == address(0)) {\\n            revert OwnableInvalidOwner(address(0));\\n        }\\n        _transferOwnership(newOwner);\\n    }\\n\\n    /**\\n     * @dev Transfers ownership of the contract to a new account (`newOwner`).\\n     * Internal function without access restriction.\\n     */\\n    function _transferOwnership(address newOwner) internal virtual {\\n        address oldOwner = _owner;\\n        _owner = newOwner;\\n        emit OwnershipTransferred(oldOwner, newOwner);\\n    }\\n}\\n\",\"keccak256\":\"0xff6d0bb2e285473e5311d9d3caacb525ae3538a80758c10649a4d61029b017bb\",\"license\":\"MIT\"},\"@openzeppelin/contracts/utils/Context.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\n// OpenZeppelin Contracts (last updated v5.0.1) (utils/Context.sol)\\n\\npragma solidity ^0.8.20;\\n\\n/**\\n * @dev Provides information about the current execution context, including the\\n * sender of the transaction and its data. While these are generally available\\n * via msg.sender and msg.data, they should not be accessed in such a direct\\n * manner, since when dealing with meta-transactions the account sending and\\n * paying for execution may not be the actual sender (as far as an application\\n * is concerned).\\n *\\n * This contract is only required for intermediate, library-like contracts.\\n */\\nabstract contract Context {\\n    function _msgSender() internal view virtual returns (address) {\\n        return msg.sender;\\n    }\\n\\n    function _msgData() internal view virtual returns (bytes calldata) {\\n        return msg.data;\\n    }\\n\\n    function _contextSuffixLength() internal view virtual returns (uint256) {\\n        return 0;\\n    }\\n}\\n\",\"keccak256\":\"0x493033a8d1b176a037b2cc6a04dad01a5c157722049bbecf632ca876224dd4b2\",\"license\":\"MIT\"},\"contracts/Oracles/ISupraSValueFeed.sol\":{\"content\":\"// SPDX-License-Identifier: AGPL-1.0\\r\\npragma solidity ^0.8.26;\\r\\n\\r\\ninterface ISupraSValueFeed {\\r\\n\\r\\n    // Data structure to hold the pair data\\r\\n    struct priceFeed {\\r\\n        uint256 round;\\r\\n        uint256 decimals;\\r\\n        uint256 time;\\r\\n        uint256 price;\\r\\n    }\\r\\n\\r\\n\\r\\n    // Data structure to hold the derived/connverted data pairs.  This depends on your requirements.\\r\\n\\r\\n    struct derivedData{\\r\\n        int256 roundDifference;\\r\\n        uint256 derivedPrice;\\r\\n        uint256 decimals;\\r\\n    }\\r\\n\\r\\n\\r\\n    // Below functions enable you to retrieve different flavours of S-Value\\r\\n    // Term \\\"pair ID\\\" and \\\"Pair index\\\" both refer to the same, pair index mentioned in our data pairs list.\\r\\n\\r\\n    // Function to retrieve the data for a single data pair\\r\\n    function getSvalue(uint256 _pairIndex)\\r\\n        external \\r\\n        view\\r\\n        returns (priceFeed memory);\\r\\n\\r\\n\\r\\n\\r\\n    //Function to fetch the data for a multiple data pairs\\r\\n    function getSvalues(uint256[] memory _pairIndexes)\\r\\n        external\\r\\n        view\\r\\n        returns (priceFeed[] memory);\\r\\n\\r\\n\\r\\n    // Function to convert and derive new data pairs using two pair IDs and a mathematical operator multiplication(*) or division(/).\\r\\n    //** Curreently only available in testnets\\r\\n    function getDerivedSvalue(uint256 pair_id_1,uint256 pair_id_2,\\r\\n        uint256 operation)\\r\\n        external\\r\\n        view\\r\\n        returns (derivedData memory);\\r\\n\\r\\n\\r\\n\\r\\n    // Function to check  the latest Timestamp on which a data pair is updated. This will help you check the staleness of a data pair before performing an action. \\r\\n    function getTimestamp(uint256 _tradingPair) \\r\\n    external\\r\\n    view\\r\\n    returns (uint256);\\r\\n\\r\\n}\",\"keccak256\":\"0xc2652695c3d57af729240f31b1b8e9ef22a011bcba3bb30029bb8b2ee7100bba\",\"license\":\"AGPL-1.0\"},\"contracts/Oracles/SupraPUSHOracle.sol\":{\"content\":\"// SPDX-License-Identifier: AGPL-1.0\\r\\npragma solidity ^0.8.26;\\r\\n\\r\\nimport \\\"@openzeppelin/contracts/access/Ownable.sol\\\";\\r\\nimport \\\"./ISupraSValueFeed.sol\\\";\\r\\n\\r\\n\\r\\n\\r\\ncontract SupraPUSHOracle is Ownable {\\r\\n    error InvalidPair();\\r\\n    \\r\\n\\r\\n    ISupraSValueFeed private sValueFeed; // pointer to supra router\\r\\n    \\r\\n\\r\\n\\r\\n    address public supraValueFeedAddress ; // router address for  Supra\\r\\n\\r\\n\\r\\n    //GAS_USDT\\r\\n    mapping(uint => bool) isValidPair;\\r\\n    \\r\\n\\r\\n    event WhitelistPair(address indexed caller, uint[] ratePairs);\\r\\n    event BlackListPair(address indexed caller, uint[] ratePairs);\\r\\n\\r\\n\\r\\n    constructor(address _supraValueFeedAddress, uint[] memory ratePairIndexes) Ownable(msg.sender) {\\r\\n        supraValueFeedAddress= _supraValueFeedAddress;\\r\\n        whitelistSupraPair(ratePairIndexes);\\r\\n        sValueFeed = ISupraSValueFeed(supraValueFeedAddress);\\r\\n    }\\r\\n\\r\\n\\r\\n    function whitelistSupraPair(uint[] memory pairs) public onlyOwner {\\r\\n        uint256 len = pairs.length;\\r\\n        for (uint256 i = 0; i < len; i++) {\\r\\n            isValidPair[pairs[i]] = true;\\r\\n        }\\r\\n        emit WhitelistPair(msg.sender, pairs);\\r\\n    }\\r\\n\\r\\n    function blacklistSupraPair(uint[] memory pairs) public onlyOwner {\\r\\n        uint256 len = pairs.length;\\r\\n        for (uint256 i = 0; i < len; i++) {\\r\\n            isValidPair[pairs[i]] = false;\\r\\n        }\\r\\n        emit BlackListPair(msg.sender, pairs);\\r\\n    }\\r\\n\\r\\n\\r\\n    \\r\\n    function getPrice(uint256 _priceIndex)\\r\\n        public\\r\\n        view\\r\\n        returns (ISupraSValueFeed.priceFeed memory)\\r\\n    {\\r\\n        require(isValidPair[_priceIndex], InvalidPair());\\r\\n        return sValueFeed.getSvalue(_priceIndex);\\r\\n    }\\r\\n\\r\\n    function getPrices(uint256[] memory _priceIndexes)\\r\\n        public\\r\\n        view\\r\\n        returns (ISupraSValueFeed.priceFeed[] memory)\\r\\n    {\\r\\n        for (uint i = 0; i < _priceIndexes.length; i++) {\\r\\n            require(isValidPair[_priceIndexes[i]], InvalidPair());\\r\\n        }\\r\\n        \\r\\n        return sValueFeed.getSvalues(_priceIndexes);\\r\\n    }\\r\\n\\r\\n    function updateSupraSvalueFeed(ISupraSValueFeed _newSValueFeed) external onlyOwner {\\r\\n        sValueFeed = _newSValueFeed;\\r\\n    }\\r\\n\\r\\n}\",\"keccak256\":\"0x5951441c78fcb6fd1dc310da5ed57c5803313b5f9766920f93c75905bf6f56ce\",\"license\":\"AGPL-1.0\"}},\"version\":1}",
+  "bytecode": "0x608060405234610231576000610a0d908138038061001c81610236565b93843982019060408383031261022e5782516001600160a01b0381169390849003610226576020810151906001600160401b03821161022a57019282601f85011215610226578351926001600160401b038411610212578360051b946020610085818801610236565b8096815201906020829782010192831161020e57602001905b8282106101fe5750505033156101ea578154336001600160a01b0319821681178455906001600160a01b03167f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e08480a3600280546001600160a01b03191691909117905550805160005b8181106101a1575050604051906020820190602083525180915260408201929060005b81811061018b57337fe901a0efe00b451f938febe0a54a280bd2032f4129232a42102b31d5cdbcb19685870386a2600254600180546001600160a01b0319166001600160a01b039290921691909117905560405161079b90816102728239f35b825185526020948501949092019160010161012b565b82518110156101d45780602060019260051b85010151600052600360205260406000208260ff1982541617905501610108565b634e487b7160e01b600052603260045260246000fd5b631e4fbdf760e01b82526004829052602482fd5b815181526020918201910161009e565b8480fd5b634e487b7160e01b83526041600452602483fd5b5080fd5b8280fd5b80fd5b600080fd5b6040519190601f01601f191682016001600160401b0381118382101761025b57604052565b634e487b7160e01b600052604160045260246000fdfe6080604052600436101561001257600080fd5b60003560e01c806309cb3a4e1461041557806334900ec2146103975780635cebf05014610316578063715018a6146102bd5780638da5cb5b14610294578063bb66ae391461026b578063e3f87ee514610220578063e7572230146101115763f2fde38b1461007f57600080fd5b3461010c57602036600319011261010c576004356001600160a01b0381169081900361010c576100ad61073c565b80156100f657600080546001600160a01b03198116831782556001600160a01b0316907f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e09080a3005b631e4fbdf760e01b600052600060045260246000fd5b600080fd5b3461010c57602036600319011261010c5760043560006060604051610135816105b1565b828152826020820152826040820152015280600052600360205260ff604060002054161561020f576001546040516344dca75160e11b81526004810192909252608090829060249082906001600160a01b03165afa8015610203576000906101c8575b6080906101c66040518092606080918051845260208101516020850152604081015160408501520151910152565bf35b5060803d6080116101fc575b6101de81836105e3565b81019060808183031261010c576080916101f7916106c6565b610198565b503d6101d4565b6040513d6000823e3d90fd5b630793df6360e21b60005260046000fd5b3461010c57602036600319011261010c576004356001600160a01b0381169081900361010c5761024e61073c565b6bffffffffffffffffffffffff60a01b6001541617600155600080f35b3461010c57600036600319011261010c576002546040516001600160a01b039091168152602090f35b3461010c57600036600319011261010c576000546040516001600160a01b039091168152602090f35b3461010c57600036600319011261010c576102d661073c565b600080546001600160a01b0319811682556001600160a01b03167f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e08280a3005b3461010c576103243661061d565b61032c61073c565b805160005b81811061036e57827fae389949b38a0c4900f5b5a16f575ccb1515fc5d8872a8416cea77d678dd1bf160405180610369339482610702565b0390a2005b8061037b6001928561069c565b516000526003602052604060002060ff19815416905501610331565b3461010c576103a53661061d565b6103ad61073c565b805160005b8181106103ea57827fe901a0efe00b451f938febe0a54a280bd2032f4129232a42102b31d5cdbcb19660405180610369339482610702565b806103f76001928561069c565b51600052600360205260406000208260ff19825416179055016103b2565b3461010c576104233661061d565b60005b815181101561045857610439818361069c565b51600052600360205260ff604060002054161561020f57600101610426565b60015460405163f48bf17760e01b81529060009082906001600160a01b031681806104868860048301610702565b03915afa90811561020357600091610508575b5060405180916020820160208352815180915260206040840192019060005b8181106104c6575050500390f35b9193509160206080826104fa6001948851606080918051845260208101516020850152604081015160408501520151910152565b0194019101918493926104b8565b903d8082843e61051881846105e3565b8201916020818403126105a95780519067ffffffffffffffff82116105ad57019180601f840112156105a95782519061055082610605565b9361055e60405195866105e3565b82855260208086019360071b820101938285116105a65750602001915b83831061058c575050505081610499565b602060809161059b84866106c6565b81520192019161057b565b80fd5b5080fd5b8280fd5b6080810190811067ffffffffffffffff8211176105cd57604052565b634e487b7160e01b600052604160045260246000fd5b90601f8019910116810190811067ffffffffffffffff8211176105cd57604052565b67ffffffffffffffff81116105cd5760051b60200190565b602060031982011261010c576004359067ffffffffffffffff821161010c578060238301121561010c57816004013561065581610605565b9261066360405194856105e3565b8184526024602085019260051b82010192831161010c57602401905b82821061068c5750505090565b813581526020918201910161067f565b80518210156106b05760209160051b010190565b634e487b7160e01b600052603260045260246000fd5b919082608091031261010c576040516106de816105b1565b60608082948051845260208101516020850152604081015160408501520151910152565b602060408183019282815284518094520192019060005b8181106107265750505090565b8251845260209384019390920191600101610719565b6000546001600160a01b0316330361075057565b63118cdaa760e01b6000523360045260246000fdfea264697066735822122067e224858bf9e58c4603fed2b7f9609cf722e0b365efc63fc24a5392dde629fe64736f6c634300081a0033",
+  "deployedBytecode": "0x6080604052600436101561001257600080fd5b60003560e01c806309cb3a4e1461041557806334900ec2146103975780635cebf05014610316578063715018a6146102bd5780638da5cb5b14610294578063bb66ae391461026b578063e3f87ee514610220578063e7572230146101115763f2fde38b1461007f57600080fd5b3461010c57602036600319011261010c576004356001600160a01b0381169081900361010c576100ad61073c565b80156100f657600080546001600160a01b03198116831782556001600160a01b0316907f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e09080a3005b631e4fbdf760e01b600052600060045260246000fd5b600080fd5b3461010c57602036600319011261010c5760043560006060604051610135816105b1565b828152826020820152826040820152015280600052600360205260ff604060002054161561020f576001546040516344dca75160e11b81526004810192909252608090829060249082906001600160a01b03165afa8015610203576000906101c8575b6080906101c66040518092606080918051845260208101516020850152604081015160408501520151910152565bf35b5060803d6080116101fc575b6101de81836105e3565b81019060808183031261010c576080916101f7916106c6565b610198565b503d6101d4565b6040513d6000823e3d90fd5b630793df6360e21b60005260046000fd5b3461010c57602036600319011261010c576004356001600160a01b0381169081900361010c5761024e61073c565b6bffffffffffffffffffffffff60a01b6001541617600155600080f35b3461010c57600036600319011261010c576002546040516001600160a01b039091168152602090f35b3461010c57600036600319011261010c576000546040516001600160a01b039091168152602090f35b3461010c57600036600319011261010c576102d661073c565b600080546001600160a01b0319811682556001600160a01b03167f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e08280a3005b3461010c576103243661061d565b61032c61073c565b805160005b81811061036e57827fae389949b38a0c4900f5b5a16f575ccb1515fc5d8872a8416cea77d678dd1bf160405180610369339482610702565b0390a2005b8061037b6001928561069c565b516000526003602052604060002060ff19815416905501610331565b3461010c576103a53661061d565b6103ad61073c565b805160005b8181106103ea57827fe901a0efe00b451f938febe0a54a280bd2032f4129232a42102b31d5cdbcb19660405180610369339482610702565b806103f76001928561069c565b51600052600360205260406000208260ff19825416179055016103b2565b3461010c576104233661061d565b60005b815181101561045857610439818361069c565b51600052600360205260ff604060002054161561020f57600101610426565b60015460405163f48bf17760e01b81529060009082906001600160a01b031681806104868860048301610702565b03915afa90811561020357600091610508575b5060405180916020820160208352815180915260206040840192019060005b8181106104c6575050500390f35b9193509160206080826104fa6001948851606080918051845260208101516020850152604081015160408501520151910152565b0194019101918493926104b8565b903d8082843e61051881846105e3565b8201916020818403126105a95780519067ffffffffffffffff82116105ad57019180601f840112156105a95782519061055082610605565b9361055e60405195866105e3565b82855260208086019360071b820101938285116105a65750602001915b83831061058c575050505081610499565b602060809161059b84866106c6565b81520192019161057b565b80fd5b5080fd5b8280fd5b6080810190811067ffffffffffffffff8211176105cd57604052565b634e487b7160e01b600052604160045260246000fd5b90601f8019910116810190811067ffffffffffffffff8211176105cd57604052565b67ffffffffffffffff81116105cd5760051b60200190565b602060031982011261010c576004359067ffffffffffffffff821161010c578060238301121561010c57816004013561065581610605565b9261066360405194856105e3565b8184526024602085019260051b82010192831161010c57602401905b82821061068c5750505090565b813581526020918201910161067f565b80518210156106b05760209160051b010190565b634e487b7160e01b600052603260045260246000fd5b919082608091031261010c576040516106de816105b1565b60608082948051845260208101516020850152604081015160408501520151910152565b602060408183019282815284518094520192019060005b8181106107265750505090565b8251845260209384019390920191600101610719565b6000546001600160a01b0316330361075057565b63118cdaa760e01b6000523360045260246000fdfea264697066735822122067e224858bf9e58c4603fed2b7f9609cf722e0b365efc63fc24a5392dde629fe64736f6c634300081a0033",
+  "devdoc": {
+    "errors": {
+      "OwnableInvalidOwner(address)": [
+        {
+          "details": "The owner is not a valid owner account. (eg. `address(0)`)"
+        }
+      ],
+      "OwnableUnauthorizedAccount(address)": [
+        {
+          "details": "The caller account is not authorized to perform an operation."
+        }
+      ]
+    },
+    "kind": "dev",
+    "methods": {
+      "owner()": {
+        "details": "Returns the address of the current owner."
+      },
+      "renounceOwnership()": {
+        "details": "Leaves the contract without owner. It will not be possible to call `onlyOwner` functions. Can only be called by the current owner. NOTE: Renouncing ownership will leave the contract without an owner, thereby disabling any functionality that is only available to the owner."
+      },
+      "transferOwnership(address)": {
+        "details": "Transfers ownership of the contract to a new account (`newOwner`). Can only be called by the current owner."
+      }
+    },
+    "version": 1
+  },
+  "userdoc": {
+    "kind": "user",
+    "methods": {},
+    "version": 1
+  },
+  "storageLayout": {
+    "storage": [
+      {
+        "astId": 8,
+        "contract": "contracts/Oracles/SupraPUSHOracle.sol:SupraPUSHOracle",
+        "label": "_owner",
+        "offset": 0,
+        "slot": "0",
+        "type": "t_address"
+      },
+      {
+        "astId": 7752,
+        "contract": "contracts/Oracles/SupraPUSHOracle.sol:SupraPUSHOracle",
+        "label": "sValueFeed",
+        "offset": 0,
+        "slot": "1",
+        "type": "t_contract(ISupraSValueFeed)7741"
+      },
+      {
+        "astId": 7754,
+        "contract": "contracts/Oracles/SupraPUSHOracle.sol:SupraPUSHOracle",
+        "label": "supraValueFeedAddress",
+        "offset": 0,
+        "slot": "2",
+        "type": "t_address"
+      },
+      {
+        "astId": 7758,
+        "contract": "contracts/Oracles/SupraPUSHOracle.sol:SupraPUSHOracle",
+        "label": "isValidPair",
+        "offset": 0,
+        "slot": "3",
+        "type": "t_mapping(t_uint256,t_bool)"
+      }
+    ],
+    "types": {
+      "t_address": {
+        "encoding": "inplace",
+        "label": "address",
+        "numberOfBytes": "20"
+      },
+      "t_bool": {
+        "encoding": "inplace",
+        "label": "bool",
+        "numberOfBytes": "1"
+      },
+      "t_contract(ISupraSValueFeed)7741": {
+        "encoding": "inplace",
+        "label": "contract ISupraSValueFeed",
+        "numberOfBytes": "20"
+      },
+      "t_mapping(t_uint256,t_bool)": {
+        "encoding": "mapping",
+        "key": "t_uint256",
+        "label": "mapping(uint256 => bool)",
+        "numberOfBytes": "32",
+        "value": "t_bool"
+      },
+      "t_uint256": {
+        "encoding": "inplace",
+        "label": "uint256",
+        "numberOfBytes": "32"
+      }
+    }
+  }
+}

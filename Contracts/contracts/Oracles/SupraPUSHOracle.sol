@@ -14,7 +14,7 @@ contract SupraPUSHOracle is Ownable {
     
 
 
-    address public supraValueFeedAddress = 0x700a89Ba8F908af38834B9Aba238b362CFfB665F; // router address for Mantle testnet on Supra
+    address public supraValueFeedAddress ; // router address for  Supra
 
 
     //GAS_USDT
